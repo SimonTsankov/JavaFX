@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 
 public class Controller {
     boolean nameBool=false;
-    boolean priceBool = false;
+    boolean priceBool = true;
     String data[]=new String[100];
     int numAded=0;
     @FXML
@@ -39,17 +39,20 @@ public class Controller {
     @FXML
     void btnClearOnAction(ActionEvent event) {
          label.setText("Products list:\n");
-
+        data = new String[100];
+        numAded=0;
     }
 
     @FXML
     void btnADD(ActionEvent event) {
             label.setText(label.getText()+name.getText()+" - "+price.getText()+"\n");
-            data[numAded]=label.getText();
+            data[numAded]=name.getText()+" - "+price.getText()+"\n";
             numAded++;
+        System.out.println(numAded);
     }
     @FXML
     void nameClear(){
+
         name.setText("");
     }
     @FXML
@@ -84,7 +87,17 @@ public class Controller {
     }
     @FXML//REMOVES LAST ADDED
     void btnRemoveOnAction(ActionEvent event){
-        //TO DO
+        if (numAded>0) {
+            String result = "Products list:\n";
+            for (int i = 1; i < numAded; i++) {
+                result += data[i];
+                System.out.println("\t i:" + data[i]);
+            }
+            numAded--;
+            System.out.println(numAded);
+            System.out.println(result);
+            label.setText(result);
+        }
 
     }
 
