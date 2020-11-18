@@ -41,7 +41,7 @@
                     </font>
                 </Button>
                 <TextField fx:id="name" onAction="#nameEntered" onMouseClicked="#nameClear" text="name:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Label fx:id="label" alignment="TOP_LEFT" prefHeight="280.0" prefWidth="394.0" text="Products list:">
+            <Label fx:id="label" alignment="TOP_LEFT" prefHeight="124.0" prefWidth="394.0" text="Products list:">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Label>
