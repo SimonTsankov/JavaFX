@@ -50,6 +50,8 @@
             <TextField id="price" fx:id="price" onAction="#priceEntered" onMouseClicked="#priceClear" text="price:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnADD" prefHeight="25.0" prefWidth="157.0" text="Add" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Button fx:id="btnRemove" minHeight="25.0" minWidth="130.0" mnemonicParsing="false" onAction="#btnRemoveOnAction" text="Изчисти последен" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField id="name" fx:id="quantity" onAction="#quantityEntered" onMouseClicked="#quantityClear" text="quantity:" GridPane.columnIndex="1" />
+            <Label fx:id="sumLabel" alignment="TOP_LEFT" prefHeight="52.0" prefWidth="393.0" style="-fx-background-color: white; -fx-opacity: 1; -fx-border-color: red; -fx-border-width: 2;" text="Sum: &#10;Sum with DDS:&#10;&#10;" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </children>

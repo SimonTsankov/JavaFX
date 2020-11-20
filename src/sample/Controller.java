@@ -1,22 +1,24 @@
 package sample;
 
-import java.awt.event.ActionListener;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.LinkedList;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class Controller {
-    boolean nameBool=false;
+    boolean nameBool = false;
     boolean priceBool = true;
-    String data[]=new String[100];
-    int numAded=0;
+    LinkedList<String> data = new LinkedList<String>();
+    LinkedList<Integer> quantityData = new LinkedList<Integer>();
+    LinkedList<Double> priceData = new LinkedList<Double>();
+    int sum=0;
+    int numAded = 0;
+    @FXML
+    private  Label sumLabel;
     @FXML
     private Button btnClear;
 
@@ -27,6 +29,8 @@ public class Controller {
     private TextField price;
 
     @FXML
+    private TextField quantity;
+    @FXML
     private Button btnAdd;
     @FXML
     private Button btnQuit;
@@ -35,75 +39,141 @@ public class Controller {
     private Button btnRemove;
     @FXML
     private Label label;
+    void updateSum(){
+        sum=0;
+        for (int i = 0; i <numAded ; i++) {
+            {
+                sum += priceData.get(i) * quantityData.get(i);
 
+            }
+        }
+        sumLabel.setText(
+                        "Sum: " +sum+
+                                " \n Sum with DDS: "+(sum*120/100)
+        );
+
+    }
+    //removing and clearing stuff
+    @FXML
+//REMOVES LAST ADDED
+    void btnRemoveOnAction(ActionEvent event) {
+        if(numAded>0) {
+        data.remove(numAded-1);
+        quantityData.remove(numAded-1);
+        priceData.remove(numAded-1);
+        numAded--;
+        label.setText(dataToString());
+        updateSum();
+    }
+
+    }
+    String dataToString(){
+        String result="Products list:\n";
+        for (String i: data) {
+            result+=i;
+        }
+        return result;
+
+    }
+    //TO DO: Rework add and quantity[]
     @FXML
     void btnClearOnAction(ActionEvent event) {
-         label.setText("Products list:\n");
-        data = new String[100];
-        numAded=0;
+            data=new LinkedList<>();
+            priceData=new LinkedList<>();
+            quantityData=new LinkedList<>();
+            numAded=0;
+            name.setText("");
+            price.setText("");
+            quantity.setText("");
+            label.setText("Products list:\n");
+            sum=0;
+        updateSum();
     }
 
+
+    @FXML
+    void nameClear() {
+        if (name.getText().equals("name:"))
+            name.setText("");
+    }
+    @FXML
+    void priceClear() {
+        if (price.getText().equals("price:"))
+            price.setText("");
+    }
+    @FXML
+    void quantityClear() {
+        if (quantity.getText().equals("quantity:"))
+            quantity.setText("");
+    }
+
+
+
+    //ADDING STUFF
     @FXML
     void btnADD(ActionEvent event) {
-            label.setText(label.getText()+name.getText()+" - "+price.getText()+"\n");
-            data[numAded]=name.getText()+" - "+price.getText()+"\n";
-            numAded++;
-        System.out.println(numAded);
-    }
-    @FXML
-    void nameClear(){
-
-        name.setText("");
-    }
-    @FXML
-    void priceClear(){
-        price.setText("");
+        ADD();
     }
 
-    @FXML//PRESING ENTER WHILE TYPING NAME
-    void nameEntered(){
-        if(nameBool!=true) {
-            label.setText(label.getText() + name.getText()+" - ");
-            nameBool = true;
-            priceBool=false;
-            data[numAded]=label.getText();
+    void ADD() {
+        if (name.getText().equals("name:") || name.getText().equals("") || price.getText().equals("price:") || price.getText().equals("")) {
+            //do nothing
+        } else {
+            try {
+
+                label.setText((label.getText() + name.getText() + " - " + price.getText() + "  " + Integer.parseInt(quantity.getText()) + "  bought \n"));
+                data.add((name.getText() + " - " + price.getText() + "  " + Integer.parseInt(quantity.getText()) + "  bought \n"));
+                priceData.add(Double.parseDouble(price.getText()));
+                quantityData.add(Integer.parseInt(quantity.getText()));
+            } catch (Exception e) {
+                label.setText((label.getText() + name.getText() + " - " + price.getText() + "  " + Integer.parseInt(quantity.getText()) + "  bought \n"));
+                data.add((name.getText() + " - " + price.getText() + "  " + Integer.parseInt(quantity.getText()) + "  bought \n"));
+                priceData.add(Double.parseDouble(price.getText()));
+                quantityData.add(1);
+            }
+            System.out.println(numAded);
             numAded++;
         }
+        updateSum();
     }
-    @FXML//PRESING ENTER WHILE TYPING PRICE
-    void priceEntered(){
-        if(priceBool!=true) {
-            label.setText(label.getText() + price.getText()+"\n");
-            priceBool=true;
-            nameBool=false;
-            data[numAded]=label.getText();
+
+
+    @FXML
+//PRESING ENTER WHILE TYPING NAME
+    void nameEntered() {
+        if (price.getText().equals("") || price.getText().equals("price:")) {
+        } else {
+            ADD();
         }
+    }
+
+    @FXML
+//PRESING ENTER WHILE TYPING PRICE
+    void priceEntered() {
+        if (name.getText().equals("") || name.getText().equals("name:")) {
+        } else {
+            ADD();
         }
 
-    @FXML//EXIT
+    }
+
+    @FXML
+    void quantityEntered() {
+
+    }
+
+
+    @FXML
+//EXIT
     void btnQuitOnAction(ActionEvent event) {
         Platform.exit();
 
     }
-    @FXML//REMOVES LAST ADDED
-    void btnRemoveOnAction(ActionEvent event){
-        if (numAded>0) {
-            String result = "Products list:\n";
-            for (int i = 1; i < numAded; i++) {
-                result += data[i];
-                System.out.println("\t i:" + data[i]);
-            }
-            numAded--;
-            System.out.println(numAded);
-            System.out.println(result);
-            label.setText(result);
-        }
 
-    }
 
     @FXML
     void initialize() {
-        assert  label !=null : "fx:id=\"label\" was not injected: check your FXML file 'sample.fxml'.";
+        assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnClear != null : "fx:id=\"btnClear\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnQuit != null : "fx:id=\"btnQuit\" was not injected: check your FXML file 'sample.fxml'.";
         label.setText("Products list:\n");
@@ -111,6 +181,7 @@ public class Controller {
         assert btnAdd != null : "fx:id=\"btnAdd\" was not injected: check your FXML file 'sample.fxml'.";
         assert name != null : "fx:id=\"name\" was not injected: check your FXML file 'sample.fxml'.";
         assert price != null : "fx:id=\"price\" was not injected: check your FXML file 'sample.fxml'.";
-
+        assert sumLabel != null : "fx:id=\"sumLabel\" was not injected: check your FXML file 'sample.fxml'.";
+        assert quantity != null : "fx:id=\"quantity\" was not injected: check your FXML file 'sample.fxml'.";
     }
 }
