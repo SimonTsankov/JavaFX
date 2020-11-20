@@ -39,7 +39,7 @@
                         <Font name="Arial Bold" size="12.0" />
                     </font>
                 </Button>
-                <TextField id="name" fx:id="name" onAction="#nameEntered" onMouseClicked="#nameClear" text="name:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
+                <TextField id="name" fx:id="name" onAction="#nameEntered" onKeyReleased="#focusName" onMouseClicked="#nameClear" text="name:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
             <Label fx:id="label" alignment="TOP_LEFT" prefHeight="204.0" prefWidth="394.0" style="-fx-background-color: red; -fx-opacity: 0.6;" text="Products list:" textFill="#f8f6c2">
                <font>
                   <Font name="Arial" size="14.0" />
@@ -47,10 +47,10 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></Label>
-            <TextField id="price" fx:id="price" onAction="#priceEntered" onMouseClicked="#priceClear" text="price:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField id="price" fx:id="price" onAction="#priceEntered" onKeyReleased="#focusPrice" onMouseClicked="#priceClear" text="price:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnADD" prefHeight="25.0" prefWidth="157.0" text="Add" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Button fx:id="btnRemove" minHeight="25.0" minWidth="130.0" mnemonicParsing="false" onAction="#btnRemoveOnAction" text="Изчисти последен" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField id="name" fx:id="quantity" onAction="#quantityEntered" onMouseClicked="#quantityClear" text="quantity:" GridPane.columnIndex="1" />
+            <TextField id="name" fx:id="quantity" onAction="#quantityEntered" onKeyReleased="#focusQuantity" onMouseClicked="#quantityClear" text="quantity:" GridPane.columnIndex="1" />
             <Label fx:id="sumLabel" alignment="TOP_LEFT" prefHeight="52.0" prefWidth="393.0" style="-fx-background-color: white; -fx-opacity: 1; -fx-border-color: red; -fx-border-width: 2;" text="Sum: &#10;Sum with DDS:&#10;&#10;" GridPane.rowIndex="1" />
             </children>
         </GridPane>

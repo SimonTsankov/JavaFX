@@ -4,10 +4,16 @@ import java.util.LinkedList;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
+import javax.print.attribute.standard.JobMessageFromOperator;
+import javax.swing.*;
 
 public class Controller {
     boolean nameBool = false;
@@ -44,7 +50,6 @@ public class Controller {
         for (int i = 0; i <numAded ; i++) {
             {
                 sum += priceData.get(i) * quantityData.get(i);
-
             }
         }
         sumLabel.setText(
@@ -53,6 +58,7 @@ public class Controller {
         );
 
     }
+
     //removing and clearing stuff
     @FXML
 //REMOVES LAST ADDED
@@ -159,7 +165,9 @@ public class Controller {
 
     @FXML
     void quantityEntered() {
-
+        if(!name.getText().equals("")||!name.getText().equals("name:")||!price.getText().equals("")||!price.getText().equals("price:")){
+            ADD();
+        }
     }
 
 
@@ -169,7 +177,47 @@ public class Controller {
         Platform.exit();
 
     }
+    //Key listeners to change typing cursor on diffrent TEXT fields
+    @FXML
+    void focusName(KeyEvent event) {
+        if(event.getCode() == KeyCode.DOWN) {
+            if(name.getText().equals(""))
+                name.setText("name:");
+            price.requestFocus();
+            if(price.getText().equals("price:"))
+                price.setText("");
+        }
+        if(event.getCode() == KeyCode.UP) {
+            if(name.getText().equals(""))
+                name.setText("name:");
+            quantity.requestFocus();
+            if(quantity.getText().equals("quantity:"))
+                quantity.setText("");
+        }
+    }
+    @FXML
+    void focusQuantity(KeyEvent event) {
+        if(event.getCode() == KeyCode.DOWN) {
+            if(quantity.getText().equals(""))
+                quantity.setText("quantity:");
+            name.requestFocus();
+            if(name.getText().equals("name:"))
+                name.setText("");
+        }
+    }
 
+    @FXML
+    void focusPrice(KeyEvent event) {
+        if(event.getCode() == KeyCode.UP) {
+            if(price.getText().equals(""))
+                price.setText("price:");
+            name.requestFocus();
+            if(name.getText().equals("name:"))
+                if(name.getText().equals("name:"))
+                    name.setText("");
+            System.out.println("test");
+        }
+    }
 
     @FXML
     void initialize() {
